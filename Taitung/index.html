@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>一周年小旅行 | 機車環遊版</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Noto Sans TC -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                    },
+                    colors: {
+                        'taitung-blue': '#2E86AB',
+                        'taitung-green': '#56A3A6',
+                        'taitung-sand': '#F0EAD6',
+                        'taitung-dark': '#1A202C',
+                        'taitung-pink': '#F48FB1',
+                        'taitung-orange': '#ED8936',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f9fafb;
+            scroll-behavior: smooth;
+        }
+        .hero-pattern {
+            background-color: #ffffff;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%232e86ab' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        /* Ticket Style */
+        .ticket-mask {
+            mask-image: radial-gradient(circle at 0 50%, transparent 10px, black 11px), radial-gradient(circle at 100% 50%, transparent 10px, black 11px);
+            -webkit-mask-image: radial-gradient(circle at 0 50%, transparent 10px, black 11px), radial-gradient(circle at 100% 50%, transparent 10px, black 11px);
+            mask-composite: intersect;
+        }
+        /* Custom Scrollbar for horizontal lists */
+        .scrolling-wrapper {
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; /* Firefox */
+        }
+        .scrolling-wrapper::-webkit-scrollbar {
+            display: none; /* Safari and Chrome */
+        }
+    </style>
+</head>
+<body class="text-gray-700 antialiased">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-sm shadow-sm transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <i class="fa-solid fa-motorcycle text-taitung-blue text-2xl mr-2"></i>
+                    <span class="font-bold text-xl text-gray-800 tracking-wide">一周年機車旅</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#trip-info" class="text-gray-600 hover:text-taitung-blue px-3 py-2 rounded-md text-sm font-medium transition">交通住宿</a>
+                    <a href="#itinerary" class="text-gray-600 hover:text-taitung-blue px-3 py-2 rounded-md text-sm font-medium transition">騎士行程</a>
+                    <a href="#pocket-list" class="text-white bg-taitung-blue hover:bg-blue-600 px-4 py-2 rounded-full text-sm font-medium transition shadow-md">私房清單</a>
+                </div>
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <a href="#pocket-list" class="text-taitung-blue font-bold mr-4 text-sm">私房清單</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-[60vh] min-h-[500px] flex items-center justify-center text-white overflow-hidden">
+        <img src="image/banner.jpg" 
+             alt="Taitung Ocean" 
+             class="absolute inset-0 w-full h-full object-cover z-0">
+        <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60 z-10"></div>
+        
+        <div class="relative z-20 text-center px-4 max-w-3xl mx-auto">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 text-shadow tracking-tight">一周年小旅行</h1>
+            <p class="text-lg md:text-2xl mb-8 font-light text-shadow opacity-90">機車漫遊・山海全紀錄</p>
+            <div class="flex justify-center gap-4">
+                <a href="#itinerary" class="bg-white text-taitung-blue font-bold py-3 px-8 rounded-full hover:bg-gray-100 transition shadow-lg backdrop-blur-sm">
+                    查看騎士攻略
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Trip Info -->
+    <section id="trip-info" class="py-12 bg-white relative -mt-10 rounded-t-3xl z-30 shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
+        <div class="max-w-5xl mx-auto px-6">
+            
+            <!-- Accommodation Card -->
+            <div class="flex flex-col md:flex-row items-center gap-8 mb-12 border-b border-gray-100 pb-12">
+                <div class="md:w-1/3 w-full">
+                    <img src="image/homestay.jpg" 
+                         alt="民宿示意圖" class="rounded-2xl shadow-lg w-full h-64 object-cover transform md:-rotate-3 hover:rotate-0 transition duration-500">
+                </div>
+                <div class="md:w-2/3 w-full">
+                    <div class="flex items-center gap-2 mb-2">
+                         <span class="bg-taitung-green text-white text-xs px-2 py-1 rounded-full">住宿</span>
+                         <h3 class="text-2xl font-bold text-gray-800">菓薌民宿</h3>
+                    </div>
+                    <p class="text-gray-500 mb-6 flex items-start">
+                        <i class="fa-solid fa-location-dot text-taitung-blue mt-1 mr-2 flex-shrink-0"></i>
+                        <span>950 臺東縣台東市豐谷南路 520 號<br><span class="text-xs text-gray-400">位於市區南側，騎車去知本或南迴線很方便，周邊好停車。</span></span>
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-3">
+                         <a href="https://www.google.com/maps/search/?api=1&query=台東縣台東市豐谷南路520號" target="_blank"
+                            class="bg-gray-100 text-gray-700 hover:bg-taitung-blue hover:text-white px-5 py-2.5 rounded-xl transition font-medium flex items-center">
+                            <i class="fa-solid fa-diamond-turn-right mr-2"></i> 導航
+                        </a>
+                        <button onclick="copyAddress()" class="border border-gray-200 text-gray-600 hover:border-taitung-blue hover:text-taitung-blue px-5 py-2.5 rounded-xl transition font-medium">
+                            <i class="fa-regular fa-copy mr-2"></i> 複製地址
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Departure Logistics -->
+            <div class="mb-12">
+                <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                    <i class="fa-solid fa-users text-taitung-blue mr-3"></i> 集合出發攻略 (目的地：南港車站)
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Traveller A -->
+                    <div class="bg-blue-50/50 p-6 rounded-2xl border border-blue-100 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded-bl-lg font-bold">內湖組</div>
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 mr-3 font-bold text-lg"><i class="fa-solid fa-house-user"></i></div>
+                            <div>
+                                <h4 class="font-bold text-gray-800 text-lg">星雲街出發</h4>
+                                <p class="text-xs text-gray-500">台北市內湖區星雲街68巷7號</p>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 text-sm text-gray-700">
+                            <li class="flex items-center">
+                                <i class="fa-solid fa-car text-blue-400 w-6"></i>
+                                <span>計程車至 <span class="font-bold text-blue-700">南港車站</span> (約 15 分鐘)</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fa-regular fa-clock text-blue-400 w-6"></i>
+                                <span>火車 06:41 發車。建議 <span class="font-bold text-red-500">06:00 出門</span>，約 06:15 抵達車站進站。</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Traveller B -->
+                    <div class="bg-orange-50/50 p-6 rounded-2xl border border-orange-100 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 bg-orange-100 text-orange-600 text-xs px-2 py-1 rounded-bl-lg font-bold">三重組</div>
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 mr-3 font-bold text-lg"><i class="fa-solid fa-house-user"></i></div>
+                            <div>
+                                <h4 class="font-bold text-gray-800 text-lg">安和路出發</h4>
+                                <p class="text-xs text-gray-500">新北市三重區安和路107號</p>
+                            </div>
+                        </div>
+                         <ul class="space-y-3 text-sm text-gray-700">
+                            <li class="flex items-center">
+                                <i class="fa-solid fa-car text-orange-400 w-6"></i>
+                                <span>計程車至 <span class="font-bold text-orange-700">南港車站</span> (清晨約 25-30 分鐘)</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fa-regular fa-clock text-orange-400 w-6"></i>
+                                <span>首班捷運可能來不及。建議 <span class="font-bold text-red-500">05:40 叫車出門</span>，約 06:10 抵達車站。</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Train Ticket Info -->
+            <div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                    <i class="fa-solid fa-ticket text-taitung-blue mr-3"></i> 台鐵車票資訊
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Ticket GO -->
+                    <div class="bg-gradient-to-br from-gray-50 to-white p-6 rounded-2xl border-l-4 border-blue-500 shadow-sm relative flex flex-col justify-between ticket-mask">
+                        <div class="border-b border-dashed border-gray-300 pb-4 mb-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="bg-blue-100 text-blue-700 text-xs font-bold px-2 py-1 rounded">去程 (2/27 週五)</span>
+                                <span class="text-gray-400 text-sm"><i class="fa-solid fa-train"></i> 自強 3000</span>
+                            </div>
+                            <div class="flex justify-between items-end">
+                                <div class="text-center">
+                                    <span class="block text-2xl font-bold text-gray-800">南港</span>
+                                    <span class="text-xs text-gray-500">06:41</span>
+                                </div>
+                                <div class="mb-2 text-gray-400 flex flex-col items-center">
+                                    <span class="text-xs font-mono mb-1">406次</span>
+                                    <i class="fa-solid fa-arrow-right-long"></i>
+                                </div>
+                                <div class="text-center">
+                                    <span class="block text-2xl font-bold text-gray-800">台東</span>
+                                    <span class="text-xs text-gray-500">11:02</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-3">
+                             <div class="flex justify-between text-sm items-center">
+                                <span class="text-gray-500">座位 Seats</span>
+                                <div class="flex gap-2">
+                                    <span class="font-mono font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded">2車 33號</span>
+                                    <span class="font-mono font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded">2車 35號</span>
+                                </div>
+                            </div>
+                            <div class="text-xs text-gray-400 mt-2 text-center">
+                                建議 06:20 前抵達南港車站 B2 台鐵剪票口
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ticket RETURN -->
+                    <div class="bg-gradient-to-br from-gray-50 to-white p-6 rounded-2xl border-l-4 border-orange-500 shadow-sm relative flex flex-col justify-between ticket-mask">
+                        <div class="border-b border-dashed border-gray-300 pb-4 mb-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="bg-orange-100 text-orange-700 text-xs font-bold px-2 py-1 rounded">回程 (3/01 週日)</span>
+                                <span class="text-gray-400 text-sm"><i class="fa-solid fa-train"></i> 自強 3000</span>
+                            </div>
+                            <div class="flex justify-between items-end">
+                                <div class="text-center">
+                                    <span class="block text-2xl font-bold text-gray-800">台東</span>
+                                    <span class="text-xs text-gray-500">17:54</span>
+                                </div>
+                                <div class="mb-2 text-gray-400 flex flex-col items-center">
+                                    <span class="text-xs font-mono mb-1">443次</span>
+                                    <i class="fa-solid fa-arrow-right-long"></i>
+                                </div>
+                                <div class="text-center">
+                                    <span class="block text-2xl font-bold text-gray-800">台北</span>
+                                    <span class="text-xs text-gray-500">22:31</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                         <div class="space-y-3">
+                             <div class="flex justify-between text-sm items-center">
+                                <span class="text-gray-500">座位 Seats</span>
+                                <div class="flex gap-2">
+                                    <span class="font-mono font-bold text-orange-600 bg-orange-50 px-2 py-1 rounded">10車 14號</span>
+                                    <span class="font-mono font-bold text-orange-600 bg-orange-50 px-2 py-1 rounded">10車 16號</span>
+                                </div>
+                            </div>
+                             <div class="text-xs text-gray-400 mt-2 text-center">
+                                建議 17:30 抵達台東車站還車/買伴手禮
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Itinerary Timeline -->
+    <section id="itinerary" class="py-16 bg-gray-50 hero-pattern">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-800">三天兩夜・騎士攻略</h2>
+                <p class="text-gray-500 mt-2">內含騎車時間預估與疲勞度提醒</p>
+                <p class="text-xs text-gray-400 mt-1"><i class="fa-solid fa-diamond-turn-right mr-1"></i> 點擊地點名稱可直接導航</p>
+            </div>
+
+            <!-- Day 1 -->
+            <div class="relative pl-8 md:pl-0 mb-16 group">
+                <!-- Vertical Line -->
+                <div class="absolute left-0 md:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-taitung-blue to-taitung-green md:-ml-0.5 rounded"></div>
+                
+                <!-- Badge -->
+                <div class="absolute left-[-12px] md:left-1/2 md:-ml-5 top-0 w-10 h-10 bg-taitung-blue text-white rounded-full flex items-center justify-center font-bold shadow-lg border-4 border-white z-10">1</div>
+
+                <div class="md:flex items-center justify-between md:gap-12">
+                    <div class="md:w-1/2 md:text-right mb-4 md:mb-0 md:pr-10">
+                        <h3 class="text-2xl font-bold text-taitung-blue">Day 1 先放行李再開吃</h3>
+                        <p class="text-sm text-gray-500 mb-2">機車疲勞度：⭐ (輕鬆)</p>
+                        <div class="hidden md:block">
+                            <span class="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded mt-1">黃記蔥油餅</span>
+                            <span class="inline-block bg-pink-100 text-pink-800 text-xs px-2 py-1 rounded mt-1">隱山茶道</span>
+                            <span class="inline-block bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded mt-1">百萬夜景</span>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 md:pl-10">
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
+                            <ul class="space-y-4">
+                                <li class="flex items-start">
+                                    <span class="text-taitung-blue font-bold w-12 shrink-0">11:30</span>
+                                    <div>
+                                        <p class="font-bold">租車 & <a href="https://www.google.com/maps/search/?api=1&query=菓薌民宿" target="_blank" class="text-taitung-blue underline hover:text-blue-700">菓薌民宿</a> 放行李</p>
+                                        <p class="text-sm text-gray-600">
+                                            <span class="bg-gray-100 text-xs px-1 rounded border border-gray-300">重點</span>
+                                            騎車往南約 15-20 分鐘。先卸下行李，騎車才安全輕鬆！
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-taitung-blue font-bold w-12 shrink-0">12:30</span>
+                                    <div>
+                                        <p class="font-bold">午餐：<a href="https://www.google.com/maps/search/?api=1&query=葉氏海鮮" target="_blank" class="text-taitung-blue underline hover:text-blue-700">葉氏海鮮</a> / <a href="https://www.google.com/maps/search/?api=1&query=蕭家有夠讚肉圓" target="_blank" class="text-taitung-blue underline hover:text-blue-700">蕭家肉圓</a></p>
+                                        <p class="text-sm text-gray-600">騎車回市區約 15 分鐘。</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-taitung-blue font-bold w-12 shrink-0">14:30</span>
+                                    <div>
+                                        <p class="font-bold"><a href="https://www.google.com/maps/search/?api=1&query=台東海濱公園" target="_blank" class="text-taitung-blue underline hover:text-blue-700">海濱公園</a> & <a href="https://www.google.com/maps/search/?api=1&query=黃記蔥油餅海邊店" target="_blank" class="text-taitung-orange underline hover:text-orange-700">黃記蔥油餅</a></p>
+                                        <p class="text-sm text-gray-600">市區短程騎乘。</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-taitung-blue font-bold w-12 shrink-0">16:30</span>
+                                    <div>
+                                        <p class="font-bold">飲料 & 鐵花村散步</p>
+                                        <p class="text-sm text-gray-600">
+                                            推薦手搖飲：<a href="https://www.google.com/maps/search/?api=1&query=隱山茶道總店" target="_blank" class="text-taitung-orange underline hover:text-orange-700">隱山茶道</a>、<a href="https://www.google.com/maps/search/?api=1&query=康杯" target="_blank" class="text-taitung-orange underline hover:text-orange-700">康杯</a> 或 <a href="https://www.google.com/maps/search/?api=1&query=果珍濃台東水果珍奶" target="_blank" class="text-taitung-orange underline hover:text-orange-700">果珍濃</a>。
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-taitung-blue font-bold w-12 shrink-0">19:00</span>
+                                    <div>
+                                        <p class="font-bold">晚餐 & 夜景</p>
+                                        <p class="text-sm text-gray-600">吃完 <a href="https://www.google.com/maps/search/?api=1&query=台東客來吃樂" target="_blank" class="text-taitung-orange underline hover:text-orange-700">客來吃樂</a>，上山去 <a href="https://www.google.com/maps/search/?api=1&query=星星部落景觀咖啡" target="_blank" class="text-purple-600 underline hover:text-purple-800">星星部落</a> 看夜景 (山路約 20-25 分鐘，小心路燈較暗)。</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 2 -->
+            <div class="relative pl-8 md:pl-0 mb-16 group">
+                <div class="absolute left-0 md:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-taitung-green to-taitung-orange md:-ml-0.5 rounded"></div>
+                <div class="absolute left-[-12px] md:left-1/2 md:-ml-5 top-0 w-10 h-10 bg-taitung-green text-white rounded-full flex items-center justify-center font-bold shadow-lg border-4 border-white z-10">2</div>
+
+                <div class="md:flex flex-row-reverse items-center justify-between md:gap-12">
+                    <div class="md:w-1/2 md:text-left mb-4 md:mb-0 md:pl-10">
+                        <h3 class="text-2xl font-bold text-taitung-green">Day 2 經典海上列車</h3>
+                        <p class="text-sm text-gray-500 mb-2">機車疲勞度：⭐ (輕鬆)</p>
+                        <div class="hidden md:block">
+                            <span class="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded mt-1">海上列車</span>
+                            <span class="inline-block bg-pink-100 text-pink-800 text-xs px-2 py-1 rounded mt-1">金針山櫻花</span>
+                            <span class="inline-block bg-red-100 text-red-800 text-xs px-2 py-1 rounded mt-1">正東山冰屋</span>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 md:pr-10">
+                         <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
+                            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-3 mb-4 text-xs text-yellow-800">
+                                <i class="fa-solid fa-train mr-1"></i> <b>Park & Ride</b>：騎車到太麻里車站停車，改搭火車去金崙看海，輕鬆又浪漫！
+                            </div>
+                            <ul class="space-y-4">
+                                <li class="flex items-start">
+                                    <span class="text-taitung-green font-bold w-12 shrink-0">08:00</span>
+                                    <div>
+                                        <p class="font-bold">早餐：<a href="https://www.google.com/maps/search/?api=1&query=明奎早餐店" target="_blank" class="text-taitung-green underline hover:text-green-700">明奎早餐店</a> 或 <a href="https://www.google.com/maps/search/?api=1&query=中華早點" target="_blank" class="text-taitung-green underline hover:text-green-700">中華早點</a></p>
+                                        <p class="text-sm text-gray-600">吃飽後出發。</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-taitung-green font-bold w-12 shrink-0">09:00</span>
+                                    <div>
+                                        <p class="font-bold">騎車前往 <a href="https://www.google.com/maps/search/?api=1&query=太麻里火車站" target="_blank" class="text-taitung-green underline hover:text-green-700">太麻里車站</a></p>
+                                        <p class="text-sm text-gray-600">車程約 40 分鐘。抵達後將機車停在車站。</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-taitung-blue font-bold w-12 shrink-0">10:00</span>
+                                    <div>
+                                        <p class="font-bold">搭火車：海上列車體驗 (太麻里 ⮕ 金崙)</p>
+                                        <p class="text-sm text-gray-600">搭乘區間車 (約 10-15 分鐘)，這段鐵路緊鄰太平洋，風景絕美。</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-taitung-green font-bold w-12 shrink-0">10:30</span>
+                                    <div>
+                                        <p class="font-bold">金崙海灘 & 午餐</p>
+                                        <p class="text-sm text-gray-600">金崙海灘看海，午餐吃 <a href="https://www.google.com/maps/search/?api=1&query=鼎倫牛肉麵" target="_blank" class="text-taitung-green underline hover:text-green-700">鼎倫牛肉麵</a>。</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-taitung-blue font-bold w-12 shrink-0">12:30</span>
+                                    <div>
+                                        <p class="font-bold">搭火車回太麻里</p>
+                                        <p class="text-sm text-gray-600">回到太麻里車站領機車。</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-taitung-green font-bold w-12 shrink-0">13:00</span>
+                                    <div>
+                                        <p class="font-bold"><a href="https://www.google.com/maps/search/?api=1&query=太麻里福興宮" target="_blank" class="text-taitung-green underline hover:text-green-700">太麻里福興宮</a> & <a href="https://www.google.com/maps/search/?api=1&query=青山農場" target="_blank" class="text-taitung-pink underline hover:text-pink-700">金針山賞櫻</a></p>
+                                        <p class="text-sm text-gray-600">騎機車上山找招財貓和賞櫻花。</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-taitung-green font-bold w-12 shrink-0">15:30</span>
+                                    <div>
+                                        <p class="font-bold"><a href="https://www.google.com/maps/search/?api=1&query=知本溫泉" target="_blank" class="text-taitung-green underline hover:text-green-700">知本溫泉</a></p>
+                                        <p class="text-sm text-gray-600">下山後往北騎，順路去知本泡湯。</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-taitung-green font-bold w-12 shrink-0">晚餐</span>
+                                    <div>
+                                        <p class="font-bold"><a href="https://www.google.com/maps/search/?api=1&query=阿鋐炸雞" target="_blank" class="text-taitung-green underline hover:text-green-700">阿鋐炸雞</a> & <a href="https://www.google.com/maps/search/?api=1&query=正東山冰屋" target="_blank" class="text-taitung-green underline hover:text-green-700">正東山冰屋</a></p>
+                                        <p class="text-sm text-gray-600">回市區吃炸雞配古早味冰品。</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 3 (Switchable Card) -->
+            <div class="relative pl-8 md:pl-0 mb-8 group">
+                <div class="absolute left-[-12px] md:left-1/2 md:-ml-5 top-0 w-10 h-10 bg-taitung-orange text-white rounded-full flex items-center justify-center font-bold shadow-lg border-4 border-white z-10">3</div>
+
+                <div class="md:flex items-center justify-between md:gap-12">
+                    <div class="md:w-1/2 md:text-right mb-4 md:mb-0 md:pr-10">
+                        <h3 class="text-2xl font-bold text-taitung-orange">Day 3 海陸二選一</h3>
+                        <p class="text-sm text-gray-500 mb-2">機車疲勞度：⭐⭐⭐⭐ (鐵屁股)</p>
+                        <div class="hidden md:block">
+                            <span class="inline-block bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded mt-1">山線 (火車+租車)</span>
+                            <span class="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded mt-1">海線 (全程機車)</span>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 md:pl-10">
+                         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                            <!-- Toggle Header -->
+                            <div class="flex border-b border-gray-100">
+                                <button onclick="switchTab('mountain')" id="tab-mountain" class="flex-1 py-3 text-center font-bold text-sm bg-orange-50 text-orange-600 transition-colors">
+                                    <i class="fa-solid fa-mountain mr-1"></i> 山線 (建議搭火車)
+                                </button>
+                                <button onclick="switchTab('sea')" id="tab-sea" class="flex-1 py-3 text-center font-bold text-sm text-gray-500 hover:bg-gray-50 transition-colors">
+                                    <i class="fa-solid fa-water mr-1"></i> 海線 (海鹽爺爺)
+                                </button>
+                            </div>
+
+                            <!-- Mountain Content -->
+                            <div id="content-mountain" class="p-6 transition-opacity duration-300">
+                                <p class="font-bold text-gray-800 mb-3 border-l-4 border-green-500 pl-2">縱谷田園・省力攻略</p>
+                                <div class="bg-green-50 text-green-800 p-3 mb-4 text-xs rounded">
+                                    <i class="fa-solid fa-thumbs-up mr-1"></i> <b>短途</b>：從市區騎機車到池上單程要 1 小時以上，很累！<b>推薦「騎車到車站寄放行李」⮕「搭火車去池上」⮕「池上當地租電動車」</b>，這樣最輕鬆！
+                                </div>
+                                <ul class="space-y-4 text-sm text-gray-600">
+                                    <li class="flex items-start">
+                                        <span class="text-taitung-orange font-bold w-12 shrink-0">09:00</span>
+                                        <div>
+                                            <p class="font-bold">民宿退房 ⮕ 台東車站寄放行李</p>
+                                            <p class="text-xs">騎機車至車站 (約 20 分)。</p>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-taitung-orange font-bold w-12 shrink-0">09:40</span>
+                                        <div><p class="font-bold">搭火車/騎車前往池上</p><p class="text-xs">區間車約 40-50 分鐘。若堅持騎車，途經<a href="https://www.google.com/maps/search/?api=1&query=初鹿牧場" target="_blank" class="text-blue-600 underline">初鹿牧場</a>。</p></div>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-taitung-orange font-bold w-12 shrink-0">12:00</span>
+                                        <div><p class="font-bold">午餐：<a href="https://www.google.com/maps/search/?api=1&query=大池豆皮店" target="_blank" class="text-blue-600 underline">大池豆皮店</a> (池上)</p><p class="text-xs">超人氣現做豆皮，建議提早到。</p></div>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-taitung-orange font-bold w-12 shrink-0">13:30</span>
+                                        <div><p class="font-bold"><a href="https://www.google.com/maps/search/?api=1&query=伯朗大道" target="_blank" class="text-blue-600 underline">伯朗大道</a></p><p class="text-xs">租電動腳踏車，與金城武樹合照，田園風光超美。</p></div>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-taitung-orange font-bold w-12 shrink-0">15:30</span>
+                                        <div><p class="font-bold">搭火車/騎車返回台東市</p><p class="text-xs">回到台東車站。</p></div>
+                                    </li>
+                                    <li class="flex items-start text-red-500">
+                                        <span class="font-bold w-12 shrink-0">17:00</span>
+                                        <div><p class="font-bold">抵達車站還車/取行李</p></div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Sea Content -->
+                            <div id="content-sea" class="p-6 hidden transition-opacity duration-300">
+                                <p class="font-bold text-gray-800 mb-3 border-l-4 border-blue-500 pl-2">東海岸・熱血騎士</p>
+                                <div class="bg-blue-50 text-blue-800 p-3 mb-4 text-xs rounded">
+                                    <i class="fa-solid fa-triangle-exclamation mr-1"></i> <b>較長途</b>：海鹽爺爺在長濱（很北邊），單程騎車約 1.5 小時，來回 3 小時。這條路線無法搭火車，<b>只能騎機車</b>。加油站較少，看到就要加。
+                                </div>
+                                <ul class="space-y-4 text-sm text-gray-600">
+                                    <li class="flex items-start">
+                                        <span class="text-taitung-blue font-bold w-12 shrink-0">08:30</span>
+                                        <div>
+                                            <p class="font-bold">民宿退房 ⮕ 前往台東車站寄放行李</p>
+                                            <p class="text-xs">
+                                                <span class="text-red-500 font-bold">重要策略</span><br>
+                                                海線景點都在北方，回程直接回車站最順路。
+                                            </p>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-taitung-blue font-bold w-12 shrink-0">10:00</span>
+                                        <div><p class="font-bold"><a href="https://www.google.com/maps/search/?api=1&query=海鹽爺爺" target="_blank" class="text-blue-600 underline">海鹽爺爺</a> (長濱)</p><p class="text-xs">最遠點，體驗傳統煮鹽文化。</p></div>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-taitung-blue font-bold w-12 shrink-0">12:00</span>
+                                        <div><p class="font-bold">午餐 (成功/長濱)</p><p class="text-xs"><a href="https://www.google.com/maps/search/?api=1&query=MONDAY+COFFEE" target="_blank" class="text-blue-600 underline">MONDAY COFFEE</a> 或 <a href="https://www.google.com/maps/search/?api=1&query=張英瑞旗魚丸" target="_blank" class="text-blue-600 underline">旗魚丸</a>。</p></div>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-taitung-blue font-bold w-12 shrink-0">14:00</span>
+                                        <div><p class="font-bold">下午茶 (東河)</p><p class="text-xs"><a href="https://www.google.com/maps/search/?api=1&query=幸福食堂" target="_blank" class="text-blue-600 underline">幸福食堂</a> 或 <a href="https://www.google.com/maps/search/?api=1&query=拾事·食室" target="_blank" class="text-blue-600 underline">拾事·食室</a>。</p></div>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-taitung-blue font-bold w-12 shrink-0">15:30</span>
+                                        <div><p class="font-bold"><a href="https://www.google.com/maps/search/?api=1&query=加路蘭遊憩區" target="_blank" class="text-blue-600 underline">加路蘭</a></p><p class="text-xs">回程順路經過，拍漂流木裝置藝術。</p></div>
+                                    </li>
+                                    <li class="flex items-start text-red-500">
+                                        <span class="font-bold w-12 shrink-0">17:00</span>
+                                        <div><p class="font-bold">抵達車站還車/取行李</p></div>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-gray-50 p-3 text-xs text-gray-500 border-t border-gray-100 flex items-center justify-center">
+                                <i class="fa-solid fa-triangle-exclamation text-red-400 mr-2"></i> 火車時間 17:54，請務必準時回到車站
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pocket List Section -->
+    <section id="pocket-list" class="py-16 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-10">
+                <span class="bg-taitung-blue text-white px-3 py-1 rounded-full text-xs tracking-wider uppercase mb-2 inline-block">My Collection</span>
+                <h2 class="text-3xl font-bold text-gray-800">您的私房口袋名單</h2>
+                <p class="text-gray-500 mt-2">點擊地址可直接開啟 Google Maps</p>
+            </div>
+
+            <!-- Grid Layout -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Card 1: 景點 -->
+                <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 mr-3">
+                            <i class="fa-solid fa-camera"></i>
+                        </div>
+                        <h3 class="font-bold text-xl text-gray-800">必去景點</h3>
+                    </div>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex justify-between items-start group">
+                            <div>
+                                <span class="text-gray-800 font-medium block">太麻里金針山 (青山農場)</span>
+                                <span class="text-xs text-gray-500">臺東縣太麻里鄉大王村 (櫻花季)</span>
+                            </div>
+                            <a href="https://www.google.com/maps/search/?api=1&query=太麻里青山農場" target="_blank" class="text-gray-400 hover:text-blue-500"><i class="fa-solid fa-location-arrow"></i></a>
+                        </li>
+                        <li class="flex justify-between items-start group">
+                            <div>
+                                <span class="text-gray-800 font-medium block">鐵道藝術村</span>
+                                <span class="text-xs text-gray-500">臺東縣台東市鐵花路369號</span>
+                            </div>
+                            <a href="https://www.google.com/maps/search/?api=1&query=臺東縣台東市鐵花路369號" target="_blank" class="text-gray-400 hover:text-blue-500"><i class="fa-solid fa-location-arrow"></i></a>
+                        </li>
+                        <li class="flex justify-between items-start group">
+                            <div>
+                                <span class="text-gray-800 font-medium block">太麻里福興宮 (招財貓)</span>
+                                <span class="text-xs text-gray-500">臺東縣太麻里鄉南里街32號</span>
+                            </div>
+                            <a href="https://www.google.com/maps/search/?api=1&query=臺東縣太麻里鄉南里街32號" target="_blank" class="text-gray-400 hover:text-blue-500"><i class="fa-solid fa-location-arrow"></i></a>
+                        </li>
+                        <li class="flex justify-between items-start group">
+                            <div>
+                                <span class="text-gray-800 font-medium block">多良觀光車站</span>
+                                <span class="text-xs text-gray-500">臺東縣太麻里鄉瀧溪路8-1號</span>
+                            </div>
+                            <a href="https://www.google.com/maps/search/?api=1&query=臺東縣太麻里鄉瀧溪路8-1號" target="_blank" class="text-gray-400 hover:text-blue-500"><i class="fa-solid fa-location-arrow"></i></a>
+                        </li>
+                        <li class="flex justify-between items-start group">
+                            <div>
+                                <span class="text-gray-800 font-medium block">伯朗大道 (錦新三號道路)</span>
+                                <span class="text-xs text-gray-500">臺東縣池上鄉錦新三號道路</span>
+                            </div>
+                            <a href="https://www.google.com/maps/search/?api=1&query=臺東縣池上鄉錦新三號道路" target="_blank" class="text-gray-400 hover:text-blue-500"><i class="fa-solid fa-location-arrow"></i></a>
+                        </li>
+                        <li class="flex justify-between items-start group">
+                            <div>
+                                <span class="text-gray-800 font-medium block">金剛大道</span>
+                                <span class="text-xs text-gray-500">臺東縣長濱鄉長光產業道路</span>
+                            </div>
+                            <a href="https://www.google.com/maps/search/?api=1&query=臺東縣長濱鄉長光產業道路" target="_blank" class="text-gray-400 hover:text-blue-500"><i class="fa-solid fa-location-arrow"></i></a>
+                        </li>
+                        <li class="flex justify-between items-start group">
+                            <div>
+                                <span class="text-gray-800 font-medium block">八仙洞海灘</span>
+                                <span class="text-xs text-gray-500">臺東縣長濱鄉 (台11線上)</span>
+                            </div>
+                            <a href="https://www.google.com/maps/search/?api=1&query=臺東縣長濱鄉八仙洞" target="_blank" class="text-gray-400 hover:text-blue-500"><i class="fa-solid fa-location-arrow"></i></a>
+                        </li>
+                        <li class="flex justify-between items-start group">
+                            <div>
+                                <span class="text-gray-800 font-medium block">海鹽爺爺 (傳統煮鹽體驗)</span>
+                                <span class="text-xs text-gray-500">臺東縣長濱鄉竹湖村永福5號</span>
+                            </div>
+                            <a href="https://www.google.com/maps/search/?api=1&query=臺東縣長濱鄉竹湖村永福5號" target="_blank" class="text-gray-400 hover:text-blue-500"><i class="fa-solid fa-location-arrow"></i></a>
+                        </li>
+                         <li class="flex justify-between items-start group">
+                            <div>
+                                <span class="text-gray-800 font-medium block">初鹿牧場</span>
+                                <span class="text-xs text-gray-500">臺東縣卑南鄉牧場1號</span>
+                            </div>
+                            <a href="https://www.google.com/maps/search/?api=1&query=臺東縣卑南鄉牧場1號" target="_blank" class="text-gray-400 hover:text-blue-500"><i class="fa-solid fa-location-arrow"></i></a>
+                        </li>
+                         <li class="flex justify-between items-start group">
+                            <div>
+                                <span class="text-gray-800 font-medium block">加路蘭遊憩區</span>
+                                <span class="text-xs text-gray-500">臺東縣臺東市台11線157公里處</span>
+                            </div>
+                            <a href="https://www.google.com/maps/search/?api=1&query=加路蘭遊憩區" target="_blank" class="text-gray-400 hover:text-blue-500"><i class="fa-solid fa-location-arrow"></i></a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Card 2: 餐廳/甜點 -->
+                <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 mr-3">
+                            <i class="fa-solid fa-utensils"></i>
+                        </div>
+                        <h3 class="font-bold text-xl text-gray-800">餐廳/咖啡/甜點</h3>
+                    </div>
+                    <div class="h-96 overflow-y-auto scrolling-wrapper pr-2">
+                        <ul class="space-y-4 text-sm">
+                            <li class="font-bold text-taitung-blue text-xs border-b pb-1">飲料冰品</li>
+                            <li class="flex justify-between group">
+                                <span class="text-gray-800">隱山茶道總店</span>
+                                <a href="https://www.google.com/maps/search/?api=1&query=臺東縣台東市正氣路148號" class="text-gray-400 hover:text-pink-500"><i class="fa-solid fa-location-arrow"></i></a>
+                            </li>
+                            <li class="flex justify-between group">
+                                <span class="text-gray-800">康杯_COMEBACK</span>
+                                <a href="https://www.google.com/maps/search/?api=1&query=臺東縣台東市福建路217號" class="text-gray-400 hover:text-pink-500"><i class="fa-solid fa-location-arrow"></i></a>
+                            </li>
+                            <li class="flex justify-between group">
+                                <span class="text-gray-800">果珍濃台東水果珍奶</span>
+                                <a href="https://www.google.com/maps/search/?api=1&query=臺東縣台東市大同路212巷4號" class="text-gray-400 hover:text-pink-500"><i class="fa-solid fa-location-arrow"></i></a>
+                            </li>
+                            <li class="flex justify-between group">
+                                <span class="text-gray-800">正東山冰屋</span>
+                                <a href="https://www.google.com/maps/search/?api=1&query=臺東縣台東市福建路173號" class="text-gray-400 hover:text-pink-500"><i class="fa-solid fa-location-arrow"></i></a>
+                            </li>
+
+                            <li class="font-bold text-taitung-blue text-xs border-b pb-1 mt-3">景觀餐廳</li>
+                            <li class="flex justify-between group">
+                                <span class="text-gray-800">星星部落景觀咖啡</span>
+                                <a href="https://www.google.com/maps/search/?api=1&query=臺東縣卑南鄉116-3號" class="text-gray-400 hover:text-pink-500"><i class="fa-solid fa-location-arrow"></i></a>
+                            </li>
+                             <li class="flex justify-between group">
+                                <span class="text-gray-800">月亮彎彎景觀咖啡</span>
+                                <a href="https://www.google.com/maps/search/?api=1&query=臺東縣卑南鄉116-5號" class="text-gray-400 hover:text-pink-500"><i class="fa-solid fa-location-arrow"></i></a>
+                            </li>
+                            <li class="flex justify-between group">
+                                <span class="text-gray-800">JIM JUM 泰式陶鍋</span>
+                                <a href="https://www.google.com/maps/search/?api=1&query=臺東縣卑南鄉漁場162號" class="text-gray-400 hover:text-pink-500"><i class="fa-solid fa-location-arrow"></i></a>
+                            </li>
+
+                            <li class="font-bold text-taitung-blue text-xs border-b pb-1 mt-3">海線/長濱/成功 (遠)</li>
+                            <li class="flex justify-between group">
+                                <span class="text-gray-800">MONDAY COFFEE</span>
+                                <a href="https://www.google.com/maps/search/?api=1&query=臺東縣成功鎮芝田路185之6號" class="text-gray-400 hover:text-pink-500"><i class="fa-solid fa-location-arrow"></i></a>
+                            </li>
+                            <li class="flex justify-between group">
+                                <span class="text-gray-800">幸福食堂 (東河)</span>
+                                <a href="https://www.google.com/maps/search/?api=1&query=臺東縣東河鄉興昌74號" class="text-gray-400 hover:text-pink-500"><i class="fa-solid fa-location-arrow"></i></a>
+                            </li>
+                            <li class="flex justify-between group">
+                                <span class="text-gray-800">拾事·食室 (東河)</span>
+                                <a href="https://www.google.com/maps/search/?api=1&query=臺東縣東河鄉隆昌村10號" class="text-gray-400 hover:text-pink-500"><i class="fa-solid fa-location-arrow"></i></a>
+                            </li>
+                             <li class="flex justify-between group">
+                                <span class="text-gray-800">彎進來 (無菜單/長濱)</span>
+                                <a href="https://www.google.com/maps/search/?api=1&query=臺東縣長濱鄉樟原村118之10號" class="text-gray-400 hover:text-pink-500"><i class="fa-solid fa-location-arrow"></i></a>
+                            </li>
+                             <li class="flex justify-between group">
+                                <span class="text-gray-800">野碧咖啡 (預約制)</span>
+                                <span class="text-xs text-gray-400">長濱鄉台11線附近</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 3: 在地小吃 -->
+                <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 mr-3">
+                            <i class="fa-solid fa-bowl-food"></i>
+                        </div>
+                        <h3 class="font-bold text-xl text-gray-800">在地小吃/早餐</h3>
+                    </div>
+                    <ul class="space-y-4 text-sm">
+                        <li class="font-bold text-taitung-blue text-xs border-b pb-1">市區美食</li>
+                        <li class="flex justify-between group">
+                            <span class="text-gray-800">明奎早餐店</span>
+                            <a href="https://www.google.com/maps/search/?api=1&query=臺東縣台東市正氣路390號" class="text-gray-400 hover:text-orange-500"><i class="fa-solid fa-location-arrow"></i></a>
+                        </li>
+                        <li class="flex justify-between group">
+                            <span class="text-gray-800">中华早點</span>
+                            <a href="https://www.google.com/maps/search/?api=1&query=臺東縣台東市中華路一段283號" class="text-gray-400 hover:text-orange-500"><i class="fa-solid fa-location-arrow"></i></a>
+                        </li>
+                        <li class="flex justify-between group">
+                            <span class="text-gray-800">台東傳廣無骨鹽酥雞</span>
+                            <a href="https://www.google.com/maps/search/?api=1&query=臺東縣台東市傳廣路204號" class="text-gray-400 hover:text-orange-500"><i class="fa-solid fa-location-arrow"></i></a>
+                        </li>
+                        <li class="flex justify-between group">
+                            <span class="text-gray-800">客來吃樂 (麵線)</span>
+                            <a href="https://www.google.com/maps/search/?api=1&query=臺東縣台東市新生路218號" class="text-gray-400 hover:text-orange-500"><i class="fa-solid fa-location-arrow"></i></a>
+                        </li>
+                        <li class="flex justify-between group">
+                            <span class="text-gray-800">黃記蔥油餅《海邊店》</span>
+                            <a href="https://www.google.com/maps/search/?api=1&query=臺東縣台東市南海路36號" class="text-gray-400 hover:text-orange-500"><i class="fa-solid fa-location-arrow"></i></a>
+                        </li>
+                         <li class="flex justify-between group">
+                            <span class="text-gray-800">葉氏海鮮 Yeh’s Fish</span>
+                            <a href="https://www.google.com/maps/search/?api=1&query=臺東縣台東市強國街211號" class="text-gray-400 hover:text-orange-500"><i class="fa-solid fa-location-arrow"></i></a>
+                        </li>
+
+                        <li class="font-bold text-taitung-blue text-xs border-b pb-1 mt-3">郊區/其他鄉鎮</li>
+                         <li class="flex justify-between group">
+                            <span class="text-gray-800">大池豆皮店 (池上)</span>
+                            <a href="https://www.google.com/maps/search/?api=1&query=臺東縣池上鄉大埔路39之2號" class="text-gray-400 hover:text-orange-500"><i class="fa-solid fa-location-arrow"></i></a>
+                        </li>
+                         <li class="flex justify-between group">
+                            <span class="text-gray-800">張英瑞旗魚丸 (成功)</span>
+                            <a href="https://www.google.com/maps/search/?api=1&query=臺東縣成功鎮光復路48號" class="text-gray-400 hover:text-orange-500"><i class="fa-solid fa-location-arrow"></i></a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-taitung-dark text-white py-10">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <i class="fa-solid fa-water text-3xl mb-4 text-taitung-blue"></i>
+            <p class="text-lg font-light mb-2">Have a Nice Trip in Taitung</p>
+            <p class="text-gray-500 text-sm">一周年快樂</p>
+        </div>
+    </footer>
+
+    <script>
+        function copyAddress() {
+            const address = "950 臺東縣台東市豐谷南路 520 號";
+            navigator.clipboard.writeText(address).then(() => {
+                alert('地址已複製！請開啟導航 APP');
+            });
+        }
+
+        // Tab Switching Logic
+        function switchTab(tabName) {
+            const mountainContent = document.getElementById('content-mountain');
+            const seaContent = document.getElementById('content-sea');
+            const mountainTab = document.getElementById('tab-mountain');
+            const seaTab = document.getElementById('tab-sea');
+
+            if (tabName === 'mountain') {
+                mountainContent.classList.remove('hidden');
+                seaContent.classList.add('hidden');
+                
+                mountainTab.classList.remove('text-gray-500', 'hover:bg-gray-50');
+                mountainTab.classList.add('bg-orange-50', 'text-orange-600');
+                
+                seaTab.classList.add('text-gray-500', 'hover:bg-gray-50');
+                seaTab.classList.remove('bg-blue-50', 'text-blue-600');
+            } else {
+                mountainContent.classList.add('hidden');
+                seaContent.classList.remove('hidden');
+                
+                mountainTab.classList.add('text-gray-500', 'hover:bg-gray-50');
+                mountainTab.classList.remove('bg-orange-50', 'text-orange-600');
+                
+                seaTab.classList.remove('text-gray-500', 'hover:bg-gray-50');
+                seaTab.classList.add('bg-blue-50', 'text-blue-600');
+            }
+        }
+    </script>
+</body>
+</html>
